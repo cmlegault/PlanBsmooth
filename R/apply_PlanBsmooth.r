@@ -6,7 +6,7 @@
 #' @param my.title title for time series plot with loess smooth (default = "")
 #' @param terminal.year last year used in smooth (allows easy retro analysis) (default = NA = most recent)
 #' @param nyears number of years to use in loess (default = 33)
-#' @param loess.span proportion time series used in smoothing (default = 0.3)
+#' @param loess.span proportion time series used in smoothing (default = NA, calculates span=9.9/nyears)
 #' @param saveplots true/false flag to save output to od (default=FALSE)
 #' @export
 
@@ -15,7 +15,7 @@ ApplyPlanBsmooth <- function(dat,
                              my.title      = "",
                              terminal.year = NA,
                              nyears        = 33,
-                             loess.span    = 0.3,
+                             loess.span    = NA,
                              saveplots     = FALSE){
   
   # select data to use
@@ -25,6 +25,7 @@ ApplyPlanBsmooth <- function(dat,
   nyears <- length(dat.use$Year)  # in case fewer years than initially selected (e.g., during retro)
   
   # apply loess 
+  if(is.na(loess.span)) loess.span <- 9.9 / nyears
   lfit <- loess(data=dat.use, avg ~ Year, span=loess.span)
   pred.fit <- predict(lfit, se=TRUE)
   

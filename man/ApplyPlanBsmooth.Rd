@@ -5,7 +5,7 @@
 \title{Applies the Plan B smooth approach.}
 \usage{
 ApplyPlanBsmooth(dat, od, my.title = "", terminal.year = NA, nyears = 33,
-  loess.span = 0.3, saveplots = FALSE)
+  loess.span = NA, saveplots = FALSE)
 }
 \arguments{
 \item{dat}{data frame of Year and avg (the biomass index)}
@@ -18,7 +18,7 @@ ApplyPlanBsmooth(dat, od, my.title = "", terminal.year = NA, nyears = 33,
 
 \item{nyears}{number of years to use in loess (default = 33)}
 
-\item{loess.span}{proportion time series used in smoothing (default = 0.3)}
+\item{loess.span}{proportion time series used in smoothing (default = NA, calculates span=9.9/nyears)}
 
 \item{saveplots}{true/false flag to save output to od (default=FALSE)}
 }
