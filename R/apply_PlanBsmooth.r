@@ -34,9 +34,9 @@ ApplyPlanBsmooth <- function(dat,
                         pred = pred.fit$fit[(nyears-2):nyears])
   
   # log linear regression of last three loess predicted values
-  llr.fit <- lm(log(pred) ~ Year, data=reg.dat)
+  llr.fit <- predict(lm(log(pred) ~ Year, data=reg.dat))
   llr.fit.df <- data.frame(Year = reg.dat$Year,
-                          llfit = exp(predict(llr.fit)))
+                          llfit = exp(llr.fit))
   
   # convert back to regular scale
   multiplier <- exp(llr.fit$coefficients[2])
@@ -70,7 +70,7 @@ ApplyPlanBsmooth <- function(dat,
   res$lfit       <- lfit
   res$pred.fit   <- pred.fit
   res$reg.dat    <- reg.dat
-  res$lm.fit     <- llr.fit
+  res$llr.fit    <- llr.fit
   res$multiplier <- multiplier
   
   return(res)
