@@ -70,7 +70,7 @@ ApplyPlanBsmooth <- function(dat,
   res$lfit       <- lfit
   res$pred.fit   <- pred.fit
   res$reg.dat    <- reg.dat
-  res$lm.fit     <- lm.fit
+  res$lm.fit     <- llr.fit
   res$multiplier <- multiplier
   
   return(res)
