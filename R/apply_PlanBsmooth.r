@@ -46,7 +46,9 @@ ApplyPlanBsmooth <- function(dat,
                        pred = pred.fit$fit,
                        loci = pred.fit$fit - 1.96 * pred.fit$se,
                        hici = pred.fit$fit + 1.96 * pred.fit$se)
-  
+
+  if(saveplots) write.csv(ribbon, paste0(od,"PlanBsmooth_table.csv"), row.names = FALSE)
+    
   tsplot <- ggplot(ribbon, aes(x=Year, y=avg)) +
     geom_point() +
     geom_ribbon(aes(x=Year, ymin=loci, ymax=hici), fill="grey50", alpha=0.3) +
