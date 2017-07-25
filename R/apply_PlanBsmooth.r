@@ -22,7 +22,7 @@ ApplyPlanBsmooth <- function(dat,
   if(is.na(terminal.year)) terminal.year <- max(dat$Year, na.rm=T)
   dat.use <- filter(dat, Year <= terminal.year, Year >= (terminal.year - nyears + 1)) %>%
     drop_na()  # removes years with missing index values
-  nyears <- length(dat.use$Year)  # in case fewer years than initially selected (e.g., during retro)
+  nyears <- max(dat.use$Year) - min(dat.use$Year) + 1 # in case fewer years than (e.g., during retro)
   
   # apply loess 
   if(is.na(loess.span)) loess.span <- 9.9 / nyears
