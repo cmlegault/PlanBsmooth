@@ -35,7 +35,9 @@ ApplyPlanBsmooth <- function(dat,
   
   # log linear regression of last three loess predicted values
   lm.fit <- lm(log(pred) ~ Year, data=reg.dat)
-
+  lm.fit.df <- data.frame(Year = reg.dat$Year,
+                          llfit = exp(predict(lm.fit)))
+  
   # convert back to regular scale
   multiplier <- exp(lm.fit$coefficients[2])
   
@@ -54,6 +56,7 @@ ApplyPlanBsmooth <- function(dat,
     geom_ribbon(aes(x=Year, ymin=loci, ymax=hici), fill="grey50", alpha=0.3) +
     geom_line(aes(x=Year, y=pred), color="blue", size=1.3) +
     geom_line(data=lm.fit, aes(x=Year, y=fit), color="red", size=1.3, linetype="dashed") +
+    geom_line(data=lm.fit.df, aes(x=Year, y=llfit), color="red", size=1.3, linetype="dashed") +
     scale_y_continuous(expand = c(0,0), limits = c(0, NA)) +
     ylab("Biomass Index") +
     labs(title = my.title, subtitle = paste0("Multiplier =", round(multiplier,3))) +
