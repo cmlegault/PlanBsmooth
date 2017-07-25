@@ -26,9 +26,9 @@ ReadADIOS <- function(data.dir,
   # convert adios.dat to format that could be read by ReadRaw 
   adios.r <- filter(adios.dat, INDEX_TYPE=="Biomass (kg/tow)") %>%   # select biomass data only
     mutate(Year = ifelse(SEASON=="FALL",YEAR+1,YEAR),                # shift Fall data ahead 1 year
-           SurveySeason = paste(SURVEY,SEASON)) %>%                  # create survey+season variable
-    select(Year, SurveySeason, INDEX) %>%                            # keep only needed variables
-    spread(key=SurveySeason, value=INDEX)                            # convert long to wide format
+           PurposeSurvey = paste(Purpose,SURVEY)) %>%                # create survey+season variable
+    select(Year, PurposeSurvey, INDEX) %>%                           # keep only needed variables
+    spread(key=PurposeSurvey, value=INDEX)                           # convert long to wide format
 
   # save the ReadRaw formatted file
   if(saveplots) write.csv(adios.r, 
