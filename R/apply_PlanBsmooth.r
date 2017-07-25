@@ -27,27 +27,27 @@ ApplyPlanBsmooth <- function(dat,
   # apply loess 
   if(is.na(loess.span)) loess.span <- 9.9 / nyears
   lfit <- loess(data=dat.use, avg ~ Year, span=loess.span)
-  pred.fit <- predict(lfit, se=TRUE)
+  pred_fit <- predict(lfit, se=TRUE)
   
   # get last three predicted values
   reg.dat <- data.frame(Year = dat.use$Year[(nyears-2):nyears],
-                        pred = pred.fit$fit[(nyears-2):nyears])
+                        pred = pred_fit$fit[(nyears-2):nyears])
   
   # log linear regression of last three loess predicted values
-  llr.fit <- predict(lm(log(pred) ~ Year, data=reg.dat))
-  llr.fit.df <- data.frame(Year = reg.dat$Year,
-                          llfit = exp(llr.fit))
+  llr_fit <- lm(log(pred) ~ Year, data=reg.dat)
+  llr_fit.df <- data.frame(Year = reg.dat$Year,
+                          llfit = exp(predict(llr_fit)))
   
   # convert back to regular scale
-  multiplier <- exp(llr.fit$coefficients[2])
+  multiplier <- exp(llr_fit$coefficients[2])
   
   # make plot
   windows(record=T)
   ribbon <- data.frame(Year = dat.use$Year,
                        avg  = dat.use$avg,
-                       pred = pred.fit$fit,
-                       loci = pred.fit$fit - 1.96 * pred.fit$se,
-                       hici = pred.fit$fit + 1.96 * pred.fit$se)
+                       pred = pred_fit$fit,
+                       loci = pred_fit$fit - 1.96 * pred_fit$se.fit,
+                       hici = pred_fit$fit + 1.96 * pred_fit$se.fit)
 
   if(saveplots) write.csv(ribbon, paste0(od,"PlanBsmooth_table.csv"), row.names = FALSE)
     
@@ -55,7 +55,7 @@ ApplyPlanBsmooth <- function(dat,
     geom_point() +
     geom_ribbon(aes(x=Year, ymin=loci, ymax=hici), fill="grey50", alpha=0.3) +
     geom_line(aes(x=Year, y=pred), color="blue", size=1.3) +
-    geom_line(data=llr.fit.df, aes(x=Year, y=llfit), color="red", size=1.3, linetype="dashed") +
+    geom_line(data=llr_fit.df, aes(x=Year, y=llfit), color="red", size=1.3, linetype="dashed") +
     scale_y_continuous(expand = c(0,0), limits = c(0, NA)) +
     ylab("Biomass Index") +
     labs(title = my.title, subtitle = paste0("Multiplier =", round(multiplier,3))) +
@@ -68,9 +68,9 @@ ApplyPlanBsmooth <- function(dat,
   res <- list()
   res$dat.use    <- dat.use
   res$lfit       <- lfit
-  res$pred.fit   <- pred.fit
+  res$pred_fit   <- pred_fit
   res$reg.dat    <- reg.dat
-  res$llr.fit    <- llr.fit
+  res$llr_fit    <- llr_fit
   res$multiplier <- multiplier
   
   return(res)
