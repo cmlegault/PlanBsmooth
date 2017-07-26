@@ -2,7 +2,7 @@
 #' 
 #' Smooths data (Year and Biomass Index) using loess, applies log linear regression to most recent three years, and retransforms back to estimate multiplier for catch advice.
 #' @param dat data frame of Year and avg (the biomass index)
-#' @param od output directory where plots are saved
+#' @param od output directory where plots are saved (default=working directory)
 #' @param my.title title for time series plot with loess smooth (default = "")
 #' @param terminal.year last year used in smooth (allows easy retro analysis) (default = NA = most recent)
 #' @param nyears number of years to use in loess (default = 33)
@@ -11,7 +11,7 @@
 #' @export
 
 ApplyPlanBsmooth <- function(dat,
-                             od,
+                             od            = ".\\",
                              my.title      = "",
                              terminal.year = NA,
                              nyears        = 33,

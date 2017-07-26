@@ -4,13 +4,13 @@
 \alias{ApplyPlanBsmooth}
 \title{Applies the Plan B smooth approach.}
 \usage{
-ApplyPlanBsmooth(dat, od, my.title = "", terminal.year = NA, nyears = 33,
-  loess.span = NA, saveplots = FALSE)
+ApplyPlanBsmooth(dat, od = ".\\\\", my.title = "", terminal.year = NA,
+  nyears = 33, loess.span = NA, saveplots = FALSE)
 }
 \arguments{
 \item{dat}{data frame of Year and avg (the biomass index)}
 
-\item{od}{output directory where plots are saved}
+\item{od}{output directory where plots are saved (default=working directory)}
 
 \item{my.title}{title for time series plot with loess smooth (default = "")}
 
