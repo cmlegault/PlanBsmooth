@@ -48,12 +48,13 @@ ApplyPlanBsmooth <- function(dat,
                        pred = pred_fit$fit,
                        loci = pred_fit$fit - 1.96 * pred_fit$se.fit,
                        hici = pred_fit$fit + 1.96 * pred_fit$se.fit)
-
   if(saveplots) write.csv(ribbon, paste0(od,"PlanBsmooth_table.csv"), row.names = FALSE)
     
+  ribbon <- mutate(ribbon, loci0 = ifelse(loci < 0, 0, loci)) # to allow ggplot to show CI when low < 0
+
   tsplot <- ggplot(ribbon, aes(x=Year, y=avg)) +
     geom_point() +
-    geom_ribbon(aes(x=Year, ymin=loci, ymax=hici), fill="grey50", alpha=0.3) +
+    geom_ribbon(aes(x=Year, ymin=loci0, ymax=hici), fill="grey50", alpha=0.3) +
     geom_line(aes(x=Year, y=pred), color="blue", size=1.3) +
     geom_line(data=llr_fit.df, aes(x=Year, y=llfit), color="red", size=1.3, linetype="dashed") +
     scale_y_continuous(expand = c(0,0), limits = c(0, NA)) +
