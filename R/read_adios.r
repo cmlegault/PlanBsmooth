@@ -3,7 +3,7 @@
 #' Reads in ADIOS! csv file (ADIOS_SV_speciesitis_stock_sex_strat_mean.csv), standardizes series if desired, computes mean of all or user selected surveys, outputs csv file with Year and Mean Index.
 #' @param data.dir directory with csv file
 #' @param adios.file.name name of ADIOS! csv file (without the .csv extension)
-#' @param od directory for output (default=data.dir)
+#' @param od directory for output (default=working directory)
 #' @param standardize true/false flag to divide by mean of time series (default=FALSE)
 #' @param usesurvey vector of true/false to select surveys to average (default=NA which means use all)
 #' @param saveplots true/false flag to save output to od (default=FALSE)
@@ -11,7 +11,7 @@
 
 ReadADIOS <- function(data.dir, 
                       adios.file.name,
-                      od                = data.dir,
+                      od                = ".\\",
                       standardize       = FALSE,
                       usesurvey         = NA,
                       saveplots         = FALSE){
@@ -30,6 +30,11 @@ ReadADIOS <- function(data.dir,
     select(Year, PurposeSurvey, INDEX) %>%                           # keep only needed variables
     spread(key=PurposeSurvey, value=INDEX)                           # convert long to wide format
 
+  # print to screen the survey names in order to facilitate usesurvey variable
+  cnames <- colnames(adios.r)
+  ncols <- length(cnames)
+  print(cbind(1:(ncols-1), cnames[2:ncols]))
+  
   # save the ReadRaw formatted file
   if(saveplots) write.csv(adios.r, 
                           file=paste0(od,"adios_converted_data_", 
@@ -38,8 +43,6 @@ ReadADIOS <- function(data.dir,
 
   # standardize each column, other than year of course, if desired
   adios.s <- adios.r
-  cnames <- colnames(adios.r)
-  ncols <- length(cnames)
   
   if(standardize == TRUE){
     for (i in 2:ncols){

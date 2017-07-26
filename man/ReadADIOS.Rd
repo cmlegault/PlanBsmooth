@@ -4,7 +4,7 @@
 \alias{ReadADIOS}
 \title{Get ADIOS! data and prepare for Plan B smooth}
 \usage{
-ReadADIOS(data.dir, adios.file.name, od = data.dir, standardize = FALSE,
+ReadADIOS(data.dir, adios.file.name, od = ".\\\\", standardize = FALSE,
   usesurvey = NA, saveplots = FALSE)
 }
 \arguments{
@@ -12,7 +12,7 @@ ReadADIOS(data.dir, adios.file.name, od = data.dir, standardize = FALSE,
 
 \item{adios.file.name}{name of ADIOS! csv file (without the .csv extension)}
 
-\item{od}{directory for output (default=data.dir)}
+\item{od}{directory for output (default=working directory)}
 
 \item{standardize}{true/false flag to divide by mean of time series (default=FALSE)}
 

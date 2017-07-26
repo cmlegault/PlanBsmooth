@@ -3,7 +3,7 @@
 #' Reads in csv file with Year in first column and as many survey indices as desired, standardizes series if desired, computes mean of all or user selected surveys, outputs csv file with Year and Mean Index.
 #' @param data.dir directory with csv file
 #' @param data.file.name name of csv file (without the .csv extension)
-#' @param od directory for output (default=data.dir)
+#' @param od directory for output (default=working directory)
 #' @param standardize true/false flag to divide by mean of time series (default=FALSE)
 #' @param usesurvey vector of true/false to select surveys to average (default=NA which means use all)
 #' @param saveplots true/false flag to save output to od (default=FALSE)
@@ -11,7 +11,7 @@
  
 ReadRaw <- function(data.dir, 
                     data.file.name,
-                    od               = data.dir,
+                    od               = ".\\",
                     standardize      = FALSE,
                     usesurvey        = NA,
                     saveplots        = FALSE){
@@ -26,6 +26,9 @@ ReadRaw <- function(data.dir,
   if(cnames[1] != "Year" & cnames[1] != "YEAR"){
     return("Header of first column not Year or YEAR, please check to ensure correct file defined")
   }
+  
+  # print to screen the survey names in order to facilitate usesurvey variable
+  print(cbind(1:(ncols-1), cnames[2:ncols]))
   
   # standardize each column, other than year of course, if desired
   raw.s <- raw.dat

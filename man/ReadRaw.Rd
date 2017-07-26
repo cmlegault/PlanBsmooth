@@ -4,7 +4,7 @@
 \alias{ReadRaw}
 \title{Get raw data and prepare for Plan B smooth}
 \usage{
-ReadRaw(data.dir, data.file.name, od = data.dir, standardize = FALSE,
+ReadRaw(data.dir, data.file.name, od = ".\\\\", standardize = FALSE,
   usesurvey = NA, saveplots = FALSE)
 }
 \arguments{
@@ -12,7 +12,7 @@ ReadRaw(data.dir, data.file.name, od = data.dir, standardize = FALSE,
 
 \item{data.file.name}{name of csv file (without the .csv extension)}
 
-\item{od}{directory for output (default=data.dir)}
+\item{od}{directory for output (default=working directory)}
 
 \item{standardize}{true/false flag to divide by mean of time series (default=FALSE)}
 
