@@ -73,6 +73,7 @@ ApplyPlanBsmooth <- function(dat,
   res$reg.dat    <- reg.dat
   res$llr_fit    <- llr_fit
   res$multiplier <- multiplier
+  res$tsplot     <- tsplot
   
   return(res)
 

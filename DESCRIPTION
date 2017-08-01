@@ -1,6 +1,6 @@
 Package: PlanBsmooth
 Title: Applies Plan B Smooth Approach to Biomass Index Data
-Version: 0.1.8
+Version: 0.1.9
 Authors@R: person("Chris", "Legault", email = "chris.legault@noaa.gov", role = c("aut", "cre"))
 Description: Organizes data from either user supplied csv file or ADIOS! survey file. Allows standardization and selection of surveys to use. Creates an average biomass index and applied loess smooth. Log linear regression used for most recent three years to estimate multiplier for setting catch advice in next year.
 Depends: R (>= 3.1.0)
