@@ -1,6 +1,5 @@
-#' run_retro
-#' 
 #' Wrapper function to conduct retrospective analysis.
+#' 
 #' @param dat data frame of Year and avg (the biomass index)
 #' @param od output directory where plots are saved (default=working directory)
 #' @param my.title title for time series plot with loess smooth (default = "")

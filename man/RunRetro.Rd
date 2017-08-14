@@ -2,7 +2,7 @@
 % Please edit documentation in R/run_retro.r
 \name{RunRetro}
 \alias{RunRetro}
-\title{run_retro}
+\title{Wrapper function to conduct retrospective analysis.}
 \usage{
 RunRetro(dat, od = ".\\\\", my.title = "", terminal.year = NA,
   nyears = 33, loess.span = NA, npeels = 7, saveretroplot = FALSE)
