@@ -1,5 +1,6 @@
 #' Wrapper function to conduct retrospective analysis.
 #' 
+#' Conducts standard retrospective analysis on predicted biomass index, inlcuding reporting Mohn's rho. Also examines retrospective analysis of multiplier (inclusing years prior to terminal year).
 #' @param dat data frame of Year and avg (the biomass index)
 #' @param od output directory where plots are saved (default=working directory)
 #' @param my.title title for time series plot with loess smooth (default = "")

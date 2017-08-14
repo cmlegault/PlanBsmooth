@@ -25,5 +25,5 @@ RunRetro(dat, od = ".\\\\", my.title = "", terminal.year = NA,
 \item{saveretroplot}{true/false flag to save retrospective plot to od (default=FALSE)}
 }
 \description{
-Wrapper function to conduct retrospective analysis.
+Conducts standard retrospective analysis on predicted biomass index, inlcuding reporting Mohn's rho. Also examines retrospective analysis of multiplier (inclusing years prior to terminal year).
 }
