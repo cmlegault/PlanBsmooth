@@ -23,19 +23,25 @@ ApplyPlanBsmooth <- function(dat,
   dat.use <- filter(dat, Year <= terminal.year, Year >= (terminal.year - nyears + 1)) %>%
     drop_na()  # removes years with missing index values
   nyears <- max(dat.use$Year) - min(dat.use$Year) + 1 # in case fewer years than (e.g., during retro)
-  
+
   # apply loess 
   if(is.na(loess.span)) loess.span <- 9.9 / nyears
   lfit <- loess(data=dat.use, avg ~ Year, span=loess.span)
   pred_fit <- predict(lfit, se=TRUE)
   
   # get last three predicted values
-  reg.dat <- data.frame(Year = dat.use$Year[(nyears-2):nyears],
-                        pred = pred_fit$fit[(nyears-2):nyears])
+  reg.dat <- data.frame(Year = dat.use$Year,
+                        pred = pred_fit$fit)
+  reg.years <- seq(terminal.year - 2, terminal.year)
+  reg.use <- filter(reg.dat, Year %in% reg.years)
   
+  # make sure can conduct regression
+  if(dim(reg.use)[1] >= 2){
+    print("problem")
+  }
   # log linear regression of last three loess predicted values
-  llr_fit <- lm(log(pred) ~ Year, data=reg.dat)
-  llr_fit.df <- data.frame(Year = reg.dat$Year,
+  llr_fit <- lm(log(pred) ~ Year, data=reg.use)
+  llr_fit.df <- data.frame(Year = reg.use$Year,
                           llfit = exp(predict(llr_fit)))
   
   # convert back to regular scale
@@ -70,7 +76,7 @@ ApplyPlanBsmooth <- function(dat,
   res$dat.use    <- dat.use
   res$lfit       <- lfit
   res$pred_fit   <- pred_fit
-  res$reg.dat    <- reg.dat
+  res$reg.use    <- reg.use
   res$llr_fit    <- llr_fit
   res$multiplier <- multiplier
   res$tsplot     <- tsplot
