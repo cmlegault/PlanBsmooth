@@ -35,10 +35,11 @@ ApplyPlanBsmooth <- function(dat,
   reg.years <- seq(terminal.year - 2, terminal.year)
   reg.use <- filter(reg.dat, Year %in% reg.years)
   
-  # make sure can conduct regression
-  if(dim(reg.use)[1] >= 2){
-    print("problem")
+  # add warning message if recent three year regression has less than three years
+  if(dim(reg.use)[1] != 3){
+    print("the log-linear regression to estimate the multiplier uses less than 3 years")
   }
+  
   # log linear regression of last three loess predicted values
   llr_fit <- lm(log(pred) ~ Year, data=reg.use)
   llr_fit.df <- data.frame(Year = reg.use$Year,
