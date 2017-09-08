@@ -33,7 +33,7 @@ ApplyPlanBsmooth <- function(dat,
   reg.dat <- data.frame(Year = dat.use$Year,
                         pred = pred_fit$fit)
   reg.years <- seq(terminal.year - 2, terminal.year)
-  reg.use <- filter(reg.dat, Year %in% reg.years)
+  reg.use <- filter(reg.dat, Year %in% reg.years, pred > 0)
   
   # add warning message if recent three year regression has less than three years
   if(dim(reg.use)[1] != 3){
