@@ -40,13 +40,22 @@ ApplyPlanBsmooth <- function(dat,
     print("the log-linear regression to estimate the multiplier uses less than 3 years")
   }
   
-  # log linear regression of last three loess predicted values
-  llr_fit <- lm(log(pred) ~ Year, data=reg.use)
-  llr_fit.df <- data.frame(Year = reg.use$Year,
-                          llfit = exp(predict(llr_fit)))
+  # trap holes in time series resulting in 0 or 1 data point for regression to avoid program crashing
+  if (dim(reg.use)[1] <= 1){
+    llr_fit <- NA
+    llr_fit.df <- NA
+    multiplier <- NA
+  }
   
-  # convert back to regular scale
-  multiplier <- exp(llr_fit$coefficients[2])
+  if (dim(reg.use)[1] >= 2){
+    # log linear regression of last three loess predicted values
+    llr_fit <- lm(log(pred) ~ Year, data=reg.use)
+    llr_fit.df <- data.frame(Year = reg.use$Year,
+                             llfit = exp(predict(llr_fit)))
+    
+    # convert back to regular scale
+    multiplier <- exp(llr_fit$coefficients[2])
+  }
   
   # make plot
   windows(record=T)
