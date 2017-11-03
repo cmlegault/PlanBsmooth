@@ -43,7 +43,8 @@ ApplyPlanBsmooth <- function(dat,
   # trap holes in time series resulting in 0 or 1 data point for regression to avoid program crashing
   if (dim(reg.use)[1] <= 1){
     llr_fit <- NA
-    llr_fit.df <- NA
+    llr_fit.df <- data.frame(Year  = integer(),
+                             llfit = double())
     multiplier <- NA
     round_multiplier <- "NA"
   }
@@ -51,7 +52,7 @@ ApplyPlanBsmooth <- function(dat,
   if (dim(reg.use)[1] >= 2){
     # log linear regression of last three loess predicted values
     llr_fit <- lm(log(pred) ~ Year, data=reg.use)
-    llr_fit.df <- data.frame(Year = reg.use$Year,
+    llr_fit.df <- data.frame(Year  = reg.use$Year,
                              llfit = exp(predict(llr_fit)))
     
     # convert back to regular scale
