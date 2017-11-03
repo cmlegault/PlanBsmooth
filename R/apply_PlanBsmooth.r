@@ -45,6 +45,7 @@ ApplyPlanBsmooth <- function(dat,
     llr_fit <- NA
     llr_fit.df <- NA
     multiplier <- NA
+    round_multiplier <- "NA"
   }
   
   if (dim(reg.use)[1] >= 2){
@@ -55,6 +56,7 @@ ApplyPlanBsmooth <- function(dat,
     
     # convert back to regular scale
     multiplier <- exp(llr_fit$coefficients[2])
+    round_multiplier <- round(multiplier, 3)
   }
   
   # make plot
@@ -75,7 +77,7 @@ ApplyPlanBsmooth <- function(dat,
     geom_line(data=llr_fit.df, aes(x=Year, y=llfit), color="red", size=1.3, linetype="dashed") +
     scale_y_continuous(expand = c(0,0), limits = c(0, NA)) +
     ylab("Biomass Index") +
-    labs(title = my.title, subtitle = paste0("Multiplier =", round(multiplier,3))) +
+    labs(title = my.title, subtitle = paste0("Multiplier = ", round_multiplier)) +
     theme_bw()
   
   print(tsplot)
