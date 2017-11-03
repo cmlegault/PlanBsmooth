@@ -62,7 +62,9 @@ RunRetro <- function(dat,
     myyear <- term.years[jval]
     check.val <- filter(ribbon, Year == myyear, peel == ipeel)$pred
     term.val <- filter(ribbon, Year == myyear, peel == 0)$pred
-    rho.vals.B[ipeel] <- (check.val - term.val) / term.val
+    if (length(check.val) == 1 & length(term.val) == 1){
+      rho.vals.B[ipeel] <- (check.val - term.val) / term.val
+    }
   }
   rho.B <- mean(rho.vals.B, na.rm=TRUE)
   
@@ -86,31 +88,32 @@ RunRetro <- function(dat,
   if(saveretroplot) savePlot(paste0(od,"retro_plot_biomass.png"), type='png')
   
   # compute retro analysis of multiplier estimates
+  mult.ribbon <- data.frame(Year = integer(),
+                            peel = integer(),
+                            mult = double())
   start.year <- max(year.range) - npeels - 3
-  mreg.dat <- filter(ribbon, Year >= (start.year - 2), Year <= start.year, peel == 0)
-  llr_fit <- lm(log(pred) ~ Year, data=mreg.dat)
-  mult <- exp(llr_fit$coefficients[2])
-  mult.ribbon <- data.frame(Year = start.year,
-                            peel = 0,
-                            mult = mult)
-  for (j in (start.year+1):max(year.range)){
+  for (j in start.year:max(year.range)){
     mreg.dat <- filter(ribbon, Year >= (j - 2), Year <= j, peel == 0)
-    llr_fit <- lm(log(pred) ~ Year, data=mreg.dat)
-    mult <- exp(llr_fit$coefficients[2])
-    mult.ribbon.step <- data.frame(Year = j,
-                                   peel = 0,
-                                   mult = mult)
-    mult.ribbon <- rbind(mult.ribbon, mult.ribbon.step)
+    if(dim(mreg.dat)[1] >= 2){
+      llr_fit <- lm(log(pred) ~ Year, data=mreg.dat)
+      mult <- exp(llr_fit$coefficients[2])
+      mult.ribbon.step <- data.frame(Year = j,
+                                     peel = 0,
+                                     mult = mult)
+      mult.ribbon <- rbind(mult.ribbon, mult.ribbon.step)
+    }
   }
   for (ipeel in 1:npeels){
     for (j in start.year:term.years[(ipeel+1)]){
       mreg.dat <- filter(ribbon, Year >= (j - 2), Year <= j, peel == ipeel)
-      llr_fit <- lm(log(pred) ~ Year, data=mreg.dat)
-      mult <- exp(llr_fit$coefficients[2])
-      mult.ribbon.step <- data.frame(Year = j,
-                                     peel = ipeel,
-                                     mult = mult)
-      mult.ribbon <- rbind(mult.ribbon, mult.ribbon.step)
+      if(dim(mreg.dat)[1] >= 2){
+        llr_fit <- lm(log(pred) ~ Year, data=mreg.dat)
+        mult <- exp(llr_fit$coefficients[2])
+        mult.ribbon.step <- data.frame(Year = j,
+                                       peel = ipeel,
+                                       mult = mult)
+        mult.ribbon <- rbind(mult.ribbon, mult.ribbon.step)
+      }
     }
   }
   
