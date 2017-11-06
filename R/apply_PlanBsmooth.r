@@ -8,6 +8,7 @@
 #' @param nyears number of years to use in loess (default = 33)
 #' @param loess.span proportion time series used in smoothing (default = NA, calculates span=9.9/nyears)
 #' @param saveplots true/false flag to save output to od (default=FALSE)
+#' @param showplots true/false flag to display plots in window (default=TRUE), must show plots to save
 #' @export
 
 ApplyPlanBsmooth <- function(dat,
@@ -16,7 +17,8 @@ ApplyPlanBsmooth <- function(dat,
                              terminal.year = NA,
                              nyears        = 33,
                              loess.span    = NA,
-                             saveplots     = FALSE){
+                             saveplots     = FALSE,
+                             showplots     = TRUE){
   
   # select data to use
   if(is.na(terminal.year)) terminal.year <- max(dat$Year, na.rm=T)
@@ -61,7 +63,6 @@ ApplyPlanBsmooth <- function(dat,
   }
   
   # make plot
-  windows(record=T)
   ribbon <- data.frame(Year = dat.use$Year,
                        avg  = dat.use$avg,
                        pred = pred_fit$fit,
@@ -81,8 +82,11 @@ ApplyPlanBsmooth <- function(dat,
     labs(title = my.title, subtitle = paste0("Multiplier = ", round_multiplier)) +
     theme_bw()
   
-  print(tsplot)
-  if(saveplots) savePlot(paste0(od,"time_series_with_loess_smooth.png"), type='png')
+  if(showplots==TRUE){
+    windows()
+    print(tsplot)
+    if(saveplots) savePlot(paste0(od,"time_series_with_loess_smooth.png"), type='png')
+  }
 
   # list of results
   res <- list()
