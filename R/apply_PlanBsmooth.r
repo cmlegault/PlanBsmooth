@@ -58,7 +58,7 @@ ApplyPlanBsmooth <- function(dat,
                              llfit = exp(predict(llr_fit)))
     
     # convert back to regular scale
-    multiplier <- exp(llr_fit$coefficients[2])
+    multiplier <- as.numeric(exp(llr_fit$coefficients[2]))
     round_multiplier <- round(multiplier, 3)
   }
   
