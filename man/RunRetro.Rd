@@ -5,7 +5,8 @@
 \title{Wrapper function to conduct retrospective analysis.}
 \usage{
 RunRetro(dat, od = ".\\\\", my.title = "", terminal.year = NA,
-  nyears = 33, loess.span = NA, npeels = 7, saveretroplot = FALSE)
+  nyears = 33, loess.span = NA, npeels = 7, saveretroplot = FALSE,
+  nameplots = "")
 }
 \arguments{
 \item{dat}{data frame of Year and avg (the biomass index)}
@@ -23,6 +24,8 @@ RunRetro(dat, od = ".\\\\", my.title = "", terminal.year = NA,
 \item{npeels}{how many years to remove in retrospective analysis}
 
 \item{saveretroplot}{true/false flag to save retrospective plot to od (default=FALSE)}
+
+\item{nameplots}{added to start of saved files (default=""), spaces not recommended}
 }
 \description{
 Conducts standard retrospective analysis on predicted biomass index, inlcuding reporting Mohn's rho. Also examines retrospective analysis of multiplier (inclusing years prior to terminal year).

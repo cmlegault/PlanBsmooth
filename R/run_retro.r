@@ -9,6 +9,7 @@
 #' @param loess.span proportion time series used in smoothing (default = NA, calculates span=9.9/nyears)
 #' @param npeels how many years to remove in retrospective analysis
 #' @param saveretroplot true/false flag to save retrospective plot to od (default=FALSE)
+#' @param nameplots added to start of saved files (default=""), spaces not recommended
 #' @export
 
 RunRetro <- function(dat,
@@ -18,7 +19,8 @@ RunRetro <- function(dat,
                      nyears        = 33,
                      loess.span    = NA,
                      npeels        = 7,
-                     saveretroplot = FALSE){
+                     saveretroplot = FALSE,
+                     nameplots     = ""){
   
   # determine ending years
   if(is.na(terminal.year)) terminal.year <- max(dat$Year, na.rm=T)
@@ -85,7 +87,7 @@ RunRetro <- function(dat,
     theme_bw()
   
   print(retro_plot_biomass)
-  if(saveretroplot) savePlot(paste0(od,"retro_plot_biomass.png"), type='png')
+  if(saveretroplot) savePlot(paste0(od, nameplots, "retro_plot_biomass.png"), type='png')
   
   # compute retro analysis of multiplier estimates
   mult.ribbon <- data.frame(Year = integer(),
@@ -128,7 +130,7 @@ RunRetro <- function(dat,
     theme_bw()
   
   print(retro_plot_multiplier)
-  if(saveretroplot) savePlot(paste0(od,"retro_plot_multiplier.png"), type='png')
+  if(saveretroplot) savePlot(paste0(od, nameplots, "retro_plot_multiplier.png"), type='png')
 
   # define list of returned variables and plots
   retres <- list(ribbon                = ribbon,
