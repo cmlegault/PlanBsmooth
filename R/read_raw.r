@@ -7,6 +7,7 @@
 #' @param standardize true/false flag to divide by mean of time series (default=FALSE)
 #' @param usesurvey vector of true/false to select surveys to average (default=NA which means use all)
 #' @param saveplots true/false flag to save output to od (default=FALSE)
+#' @param nameplots added to start of saved files (default=""), spaces not recommended
 #' @export
  
 ReadRaw <- function(data.dir, 
@@ -14,7 +15,8 @@ ReadRaw <- function(data.dir,
                     od               = ".\\",
                     standardize      = FALSE,
                     usesurvey        = NA,
-                    saveplots        = FALSE){
+                    saveplots        = FALSE,
+                    nameplots        = ""){
   
   raw.dat <- read.csv(paste0(data.dir,"\\",data.file.name,".csv"))
   
@@ -50,7 +52,7 @@ ReadRaw <- function(data.dir,
 
   # save csv file of averaged values
   if(saveplots) write.csv(raw.avg, 
-                          file=paste0(od,"raw_converted_average_",data.file.name,".csv"), 
+                          file=paste0(od, nameplots, "raw_converted_average_",data.file.name,".csv"), 
                           row.names = FALSE)
   
   return(raw.avg)

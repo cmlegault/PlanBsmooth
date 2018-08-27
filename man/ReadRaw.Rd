@@ -5,7 +5,7 @@
 \title{Get raw data and prepare for Plan B smooth}
 \usage{
 ReadRaw(data.dir, data.file.name, od = ".\\\\", standardize = FALSE,
-  usesurvey = NA, saveplots = FALSE)
+  usesurvey = NA, saveplots = FALSE, nameplots = "")
 }
 \arguments{
 \item{data.dir}{directory with csv file}
@@ -19,6 +19,8 @@ ReadRaw(data.dir, data.file.name, od = ".\\\\", standardize = FALSE,
 \item{usesurvey}{vector of true/false to select surveys to average (default=NA which means use all)}
 
 \item{saveplots}{true/false flag to save output to od (default=FALSE)}
+
+\item{nameplots}{added to start of saved files (default=""), spaces not recommended}
 }
 \description{
 Reads in csv file with Year in first column and as many survey indices as desired, standardizes series if desired, computes mean of all or user selected surveys, outputs csv file with Year and Mean Index.

@@ -9,6 +9,7 @@
 #' @param loess.span proportion time series used in smoothing (default = NA, calculates span=9.9/nyears)
 #' @param saveplots true/false flag to save output to od (default=FALSE)
 #' @param showplots true/false flag to display plots in window (default=TRUE), must show plots to save
+#' @param nameplots added to start of saved files (default=""), spaces not recommended
 #' @export
 
 ApplyPlanBsmooth <- function(dat,
@@ -18,7 +19,8 @@ ApplyPlanBsmooth <- function(dat,
                              nyears        = 33,
                              loess.span    = NA,
                              saveplots     = FALSE,
-                             showplots     = TRUE){
+                             showplots     = TRUE,
+                             nameplots     = ""){
   
   # select data to use
   if(is.na(terminal.year)) terminal.year <- max(dat$Year, na.rm=T)
@@ -68,7 +70,7 @@ ApplyPlanBsmooth <- function(dat,
                        pred = pred_fit$fit,
                        loci = pred_fit$fit - 1.96 * pred_fit$se.fit,
                        hici = pred_fit$fit + 1.96 * pred_fit$se.fit)
-  if(saveplots) write.csv(ribbon, paste0(od,"PlanBsmooth_table.csv"), row.names = FALSE)
+  if(saveplots) write.csv(ribbon, paste0(od, nameplots, "PlanBsmooth_table.csv"), row.names = FALSE)
     
   ribbon <- mutate(ribbon, loci0 = ifelse(loci < 0, 0, loci)) # to allow ggplot to show CI when low < 0
 
@@ -85,7 +87,7 @@ ApplyPlanBsmooth <- function(dat,
   if(showplots==TRUE){
     windows()
     print(tsplot)
-    if(saveplots) savePlot(paste0(od,"time_series_with_loess_smooth.png"), type='png')
+    if(saveplots) savePlot(paste0(od, nameplots, "time_series_with_loess_smooth.png"), type='png')
   }
 
   # list of results

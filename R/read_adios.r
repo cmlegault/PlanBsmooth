@@ -7,6 +7,7 @@
 #' @param standardize true/false flag to divide by mean of time series (default=FALSE)
 #' @param usesurvey vector of true/false to select surveys to average (default=NA which means use all)
 #' @param saveplots true/false flag to save output to od (default=FALSE)
+#' @param nameplots added to start of saved files (default=""), spaces not recommended
 #' @export
 
 ReadADIOS <- function(data.dir, 
@@ -14,7 +15,8 @@ ReadADIOS <- function(data.dir,
                       od                = ".\\",
                       standardize       = FALSE,
                       usesurvey         = NA,
-                      saveplots         = FALSE){
+                      saveplots         = FALSE,
+                      nameplots         = ""){
   
   adios.dat <- read.csv(paste0(data.dir,"\\",adios.file.name,".csv"))
 
@@ -37,7 +39,7 @@ ReadADIOS <- function(data.dir,
   
   # save the ReadRaw formatted file
   if(saveplots) write.csv(adios.r, 
-                          file=paste0(od,"adios_converted_data_", 
+                          file=paste0(od, nameplots, "adios_converted_data_", 
                                       adios.dat$SPECIES_ITIS[1],"_",
                                       adios.dat$STOCK_ABBREV[1],".csv"), row.names=FALSE)
 
@@ -62,7 +64,7 @@ ReadADIOS <- function(data.dir,
 
   # save csv file of averaged values
   if(saveplots) write.csv(adios.avg, 
-                          file=paste0(od,"adios_converted_average_",adios.file.name,".csv"), 
+                          file=paste0(od, nameplots, "adios_converted_average_",adios.file.name,".csv"), 
                           row.names = FALSE)
   
   return(adios.avg)
