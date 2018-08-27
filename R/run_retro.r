@@ -82,7 +82,7 @@ RunRetro <- function(dat,
     geom_line(data=ribbon, aes(x=Year, y=pred, color=as.factor(peel)), size=1.3) +
     scale_y_continuous(expand = c(0,0), limits = c(0, NA)) +
     ylab("Biomass Index") +
-    labs(title = my.title, subtitle = paste0("Mohn's rho =",round(rho.B,3))) +
+    labs(title = my.title, subtitle = paste0("Mohn's rho = ",round(rho.B,3))) +
     labs(color="Peel") +
     theme_bw()
   
