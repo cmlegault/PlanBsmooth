@@ -9,6 +9,7 @@
 #' @param loess.span proportion time series used in smoothing (default = NA, calculates span=9.9/nyears)
 #' @param npeels how many years to remove in retrospective analysis
 #' @param saveretroplot true/false flag to save retrospective plot to od (default=FALSE)
+#' @param showplots true/false flag to display plots in window (default=TRUE)
 #' @param nameplots added to start of saved files (default=""), spaces not recommended
 #' @export
 
@@ -20,6 +21,7 @@ RunRetro <- function(dat,
                      loess.span    = NA,
                      npeels        = 7,
                      saveretroplot = FALSE,
+                     showplots     = TRUE,
                      nameplots     = ""){
   
   # determine ending years
@@ -35,7 +37,9 @@ RunRetro <- function(dat,
                                      terminal.year = term.years[ipeel],
                                      nyears        = nyears,
                                      loess.span    = loess.span,
-                                     saveplots     = FALSE)
+                                     saveplots     = FALSE,
+                                     showplots     = showplots,
+                                     nameplots     = nameplots)
   }
   
   # get data for retro plot
