@@ -91,7 +91,7 @@ RunRetro <- function(dat,
     theme_bw()
   
   if(showplots) print(retro_plot_biomass)
-  if(saveretroplot) savePlot(paste0(od, nameplots, "retro_plot_biomass.png"), type='png')
+  if(saveretroplot) ggsave(paste0(od, nameplots, "retro_plot_biomass.png"), retro_plot_biomass)
   
   # compute retro analysis of multiplier estimates
   mult.ribbon <- data.frame(Year = integer(),
@@ -134,7 +134,7 @@ RunRetro <- function(dat,
     theme_bw()
   
   if(showplots) print(retro_plot_multiplier)
-  if(saveretroplot) savePlot(paste0(od, nameplots, "retro_plot_multiplier.png"), type='png')
+  if(saveretroplot) ggsave(paste0(od, nameplots, "retro_plot_multiplier.png"), retro_plot_multiplier)
 
   # define list of returned variables and plots
   retres <- list(ribbon                = ribbon,

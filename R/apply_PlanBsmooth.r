@@ -85,7 +85,7 @@ ApplyPlanBsmooth <- function(dat,
     theme_bw()
   
   if(showplots==TRUE) print(tsplot)
-  if(saveplots) savePlot(paste0(od, nameplots, "time_series_with_loess_smooth.png"), type='png')
+  if(saveplots) ggsave(paste0(od, nameplots, "time_series_with_loess_smooth.png"), tsplot)
   
 
   # list of results
