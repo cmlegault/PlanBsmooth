@@ -23,7 +23,7 @@ ApplyPlanBsmooth(dat, od = ".\\\\", my.title = "", terminal.year = NA,
 
 \item{saveplots}{true/false flag to save output to od (default=FALSE)}
 
-\item{showplots}{true/false flag to display plots in window (default=TRUE), must show plots to save}
+\item{showplots}{true/false flag to display plots in window (default=TRUE)}
 
 \item{nameplots}{added to start of saved files (default=""), spaces not recommended}
 }

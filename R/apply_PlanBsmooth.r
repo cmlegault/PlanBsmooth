@@ -8,7 +8,7 @@
 #' @param nyears number of years to use in loess (default = 33)
 #' @param loess.span proportion time series used in smoothing (default = NA, calculates span=9.9/nyears)
 #' @param saveplots true/false flag to save output to od (default=FALSE)
-#' @param showplots true/false flag to display plots in window (default=TRUE), must show plots to save
+#' @param showplots true/false flag to display plots in window (default=TRUE)
 #' @param nameplots added to start of saved files (default=""), spaces not recommended
 #' @export
 
@@ -84,11 +84,9 @@ ApplyPlanBsmooth <- function(dat,
     labs(title = my.title, subtitle = paste0("Multiplier = ", round_multiplier)) +
     theme_bw()
   
-  if(showplots==TRUE){
-    windows()
-    print(tsplot)
-    if(saveplots) savePlot(paste0(od, nameplots, "time_series_with_loess_smooth.png"), type='png')
-  }
+  if(showplots==TRUE) print(tsplot)
+  if(saveplots) savePlot(paste0(od, nameplots, "time_series_with_loess_smooth.png"), type='png')
+  
 
   # list of results
   res <- list()
