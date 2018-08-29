@@ -90,7 +90,7 @@ RunRetro <- function(dat,
     labs(color="Peel") +
     theme_bw()
   
-  print(retro_plot_biomass)
+  if(showplots) print(retro_plot_biomass)
   if(saveretroplot) savePlot(paste0(od, nameplots, "retro_plot_biomass.png"), type='png')
   
   # compute retro analysis of multiplier estimates
@@ -133,7 +133,7 @@ RunRetro <- function(dat,
     labs(color="Peel") +
     theme_bw()
   
-  print(retro_plot_multiplier)
+  if(showplots) print(retro_plot_multiplier)
   if(saveretroplot) savePlot(paste0(od, nameplots, "retro_plot_multiplier.png"), type='png')
 
   # define list of returned variables and plots
