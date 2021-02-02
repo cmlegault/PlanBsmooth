@@ -6,6 +6,7 @@
 #' @param od directory for output (default=working directory)
 #' @param standardize true/false flag to divide by mean of time series (default=FALSE)
 #' @param usesurvey vector of true/false to select surveys to average (default=NA which means use all)
+#' @param narmavgflag true/false flag for na.rm setting in average across multiple surveys (default=FALSE)
 #' @param saveplots true/false flag to save output to od (default=FALSE)
 #' @param nameplots added to start of saved files (default=""), spaces not recommended
 #' @export
@@ -15,6 +16,7 @@ ReadADIOS <- function(data.dir,
                       od                = ".\\",
                       standardize       = FALSE,
                       usesurvey         = NA,
+                      narmavgflag       = FALSE,
                       saveplots         = FALSE,
                       nameplots         = ""){
   
@@ -60,7 +62,7 @@ ReadADIOS <- function(data.dir,
   if(sum(usesurvey) == 1) adios.avg <- data.frame(Year = adios.r[,1],
                                                   avg = adios.a)
   if(sum(usesurvey) >= 2) adios.avg <- data.frame(Year = adios.r[,1],
-                                                  avg = apply(adios.a, 1, mean) )
+                                                  avg = apply(adios.a, 1, mean), na.rm = narmavgflag)
 
   # save csv file of averaged values
   if(saveplots) write.csv(adios.avg, 

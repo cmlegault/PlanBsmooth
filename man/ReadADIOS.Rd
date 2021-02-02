@@ -4,8 +4,16 @@
 \alias{ReadADIOS}
 \title{Get ADIOS! data and prepare for Plan B smooth}
 \usage{
-ReadADIOS(data.dir, adios.file.name, od = ".\\\\", standardize = FALSE,
-  usesurvey = NA, saveplots = FALSE, nameplots = "")
+ReadADIOS(
+  data.dir,
+  adios.file.name,
+  od = ".\\\\",
+  standardize = FALSE,
+  usesurvey = NA,
+  narmavgflag = FALSE,
+  saveplots = FALSE,
+  nameplots = ""
+)
 }
 \arguments{
 \item{data.dir}{directory with csv file}
@@ -17,6 +25,8 @@ ReadADIOS(data.dir, adios.file.name, od = ".\\\\", standardize = FALSE,
 \item{standardize}{true/false flag to divide by mean of time series (default=FALSE)}
 
 \item{usesurvey}{vector of true/false to select surveys to average (default=NA which means use all)}
+
+\item{narmavgflag}{true/false flag for na.rm setting in average across multiple surveys (default=FALSE)}
 
 \item{saveplots}{true/false flag to save output to od (default=FALSE)}
 
