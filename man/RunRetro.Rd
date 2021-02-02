@@ -4,9 +4,18 @@
 \alias{RunRetro}
 \title{Wrapper function to conduct retrospective analysis.}
 \usage{
-RunRetro(dat, od = ".\\\\", my.title = "", terminal.year = NA,
-  nyears = 33, loess.span = NA, npeels = 7, saveretroplot = FALSE,
-  showplots = TRUE, nameplots = "")
+RunRetro(
+  dat,
+  od = ".\\\\",
+  my.title = "",
+  terminal.year = NA,
+  nyears = 33,
+  loess.span = NA,
+  npeels = 7,
+  saveretroplot = FALSE,
+  showplots = TRUE,
+  nameplots = ""
+)
 }
 \arguments{
 \item{dat}{data frame of Year and avg (the biomass index)}

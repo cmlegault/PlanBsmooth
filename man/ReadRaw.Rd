@@ -4,9 +4,16 @@
 \alias{ReadRaw}
 \title{Get raw data and prepare for Plan B smooth}
 \usage{
-ReadRaw(data.dir, data.file.name, od = ".\\\\", standardize = FALSE,
-  usesurvey = NA, narmavgflag = FALSE, saveplots = FALSE,
-  nameplots = "")
+ReadRaw(
+  data.dir,
+  data.file.name,
+  od = ".\\\\",
+  standardize = FALSE,
+  usesurvey = NA,
+  narmavgflag = FALSE,
+  saveplots = FALSE,
+  nameplots = ""
+)
 }
 \arguments{
 \item{data.dir}{directory with csv file}
