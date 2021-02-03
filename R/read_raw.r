@@ -50,7 +50,7 @@ ReadRaw <- function(data.dir,
   if(sum(usesurvey) == 1) raw.avg <- data.frame(Year = raw.dat[,1],
                                                 avg = raw.a)
   if(sum(usesurvey) >= 2) raw.avg <- data.frame(Year = raw.dat[,1],
-                                                avg = apply(raw.a, 1, mean), na.rm = narmavgflag )
+                                                avg = apply(raw.a, 1, mean, na.rm = narmavgflag))
 
   # save csv file of averaged values
   if(saveplots) write.csv(raw.avg, 
