@@ -6,6 +6,7 @@
 #' @param od directory for output (default=working directory)
 #' @param standardize true/false flag to divide by mean of time series (default=FALSE)
 #' @param usesurvey vector of true/false to select surveys to average (default=NA which means use all)
+#' @param shiftfallflag true/falsee flag for shifting fall survey by one year (default=TRUE)
 #' @param narmavgflag true/false flag for na.rm setting in average across multiple surveys (default=FALSE)
 #' @param saveplots true/false flag to save output to od (default=FALSE)
 #' @param nameplots added to start of saved files (default=""), spaces not recommended
@@ -16,6 +17,7 @@ ReadADIOS <- function(data.dir,
                       od                = ".\\",
                       standardize       = FALSE,
                       usesurvey         = NA,
+                      shiftfallflag     = TRUE,
                       narmavgflag       = FALSE,
                       saveplots         = FALSE,
                       nameplots         = ""){
@@ -29,7 +31,7 @@ ReadADIOS <- function(data.dir,
   
   # convert adios.dat to format that could be read by ReadRaw 
   adios.r <- filter(adios.dat, INDEX_TYPE=="Biomass (kg/tow)") %>%   # select biomass data only
-    mutate(Year = ifelse(SEASON=="FALL",YEAR+1,YEAR),                # shift Fall data ahead 1 year
+    mutate(Year = ifelse(shiftfallflag == TRUE & SEASON=="FALL",YEAR+1,YEAR),                # shift Fall data ahead 1 year
            PurposeSurvey = paste(PURPOSE_CODE,SURVEY)) %>%           # create survey+season variable
     select(Year, PurposeSurvey, INDEX) %>%                           # keep only needed variables
     spread(key=PurposeSurvey, value=INDEX)                           # convert long to wide format

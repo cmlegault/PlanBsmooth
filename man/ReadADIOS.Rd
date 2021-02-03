@@ -10,6 +10,7 @@ ReadADIOS(
   od = ".\\\\",
   standardize = FALSE,
   usesurvey = NA,
+  shiftfallflag = TRUE,
   narmavgflag = FALSE,
   saveplots = FALSE,
   nameplots = ""
@@ -25,6 +26,8 @@ ReadADIOS(
 \item{standardize}{true/false flag to divide by mean of time series (default=FALSE)}
 
 \item{usesurvey}{vector of true/false to select surveys to average (default=NA which means use all)}
+
+\item{shiftfallflag}{true/falsee flag for shifting fall survey by one year (default=TRUE)}
 
 \item{narmavgflag}{true/false flag for na.rm setting in average across multiple surveys (default=FALSE)}
 
