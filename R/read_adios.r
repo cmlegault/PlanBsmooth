@@ -75,5 +75,5 @@ ReadADIOS <- function(data.dir,
                           row.names = FALSE)
   
   return(adios.avg)
-  
+#testing  
 } 
