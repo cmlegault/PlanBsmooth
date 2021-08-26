@@ -66,7 +66,7 @@ ReadADIOS <- function(data.dir,
   if(sum(usesurvey) == 1) adios.avg <- data.frame(Year = adios.r[,1],
                                                   avg = adios.a)
   if(sum(usesurvey) >= 2) adios.avg <- data.frame(Year = adios.r[,1],
-                                                  avg = apply(adios.a, 1, mean), na.rm = narmavgflag)
+                                                  avg = apply(adios.a, 1, mean, na.rm = narmavgflag))
 
   # save csv file of averaged values
   if(saveplots) write.csv(adios.avg, 
