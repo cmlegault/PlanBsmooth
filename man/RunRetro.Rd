@@ -6,7 +6,7 @@
 \usage{
 RunRetro(
   dat,
-  od = ".\\\\",
+  od = ".",
   my.title = "",
   terminal.year = NA,
   nyears = 33,
