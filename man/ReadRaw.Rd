@@ -7,7 +7,7 @@
 ReadRaw(
   data.dir,
   data.file.name,
-  od = ".\\\\",
+  od = ".",
   standardize = FALSE,
   usesurvey = NA,
   narmavgflag = FALSE,

@@ -14,7 +14,7 @@
 
 ReadADIOS <- function(data.dir, 
                       adios.file.name,
-                      od                = ".\\",
+                      od                = ".",
                       standardize       = FALSE,
                       usesurvey         = NA,
                       shiftfallflag     = TRUE,
@@ -22,7 +22,7 @@ ReadADIOS <- function(data.dir,
                       saveplots         = FALSE,
                       nameplots         = ""){
   
-  adios.dat <- read.csv(paste0(data.dir,"\\",adios.file.name,".csv"))
+  adios.dat <- read.csv(file.path(data.dir, paste0(adios.file.name,".csv")))
 
   # check to make sure ADIOS! file
   if(colnames(adios.dat)[1] != "COMMON_NAME"){
@@ -43,9 +43,11 @@ ReadADIOS <- function(data.dir,
   
   # save the ReadRaw formatted file
   if(saveplots) write.csv(adios.r, 
-                          file=paste0(od, nameplots, "adios_converted_data_", 
+                          file=file.path(od, paste0(nameplots, 
+                                      "adios_converted_data_", 
                                       adios.dat$SPECIES_ITIS[1],"_",
-                                      adios.dat$STOCK_ABBREV[1],".csv"), row.names=FALSE)
+                                      adios.dat$STOCK_ABBREV[1],".csv")), 
+                          row.names=FALSE)
 
   # standardize each column, other than year of course, if desired
   adios.s <- adios.r
@@ -68,7 +70,8 @@ ReadADIOS <- function(data.dir,
 
   # save csv file of averaged values
   if(saveplots) write.csv(adios.avg, 
-                          file=paste0(od, nameplots, "adios_converted_average_",adios.file.name,".csv"), 
+                          file=file.path(od, paste0(nameplots, 
+                            "adios_converted_average_",adios.file.name,".csv")), 
                           row.names = FALSE)
   
   return(adios.avg)

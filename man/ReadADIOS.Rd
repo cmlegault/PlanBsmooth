@@ -7,7 +7,7 @@
 ReadADIOS(
   data.dir,
   adios.file.name,
-  od = ".\\\\",
+  od = ".",
   standardize = FALSE,
   usesurvey = NA,
   shiftfallflag = TRUE,

@@ -13,14 +13,14 @@
  
 ReadRaw <- function(data.dir, 
                     data.file.name,
-                    od               = ".\\",
+                    od               = ".",
                     standardize      = FALSE,
                     usesurvey        = NA,
                     narmavgflag      = FALSE,
                     saveplots        = FALSE,
                     nameplots        = ""){
   
-  raw.dat <- read.csv(paste0(data.dir,"\\",data.file.name,".csv"))
+  raw.dat <- read.csv(file.path(data.dir, paste0(data.file.name,".csv")))
   
   # get some basic info about raw.dat
   cnames <- colnames(raw.dat)
@@ -54,7 +54,8 @@ ReadRaw <- function(data.dir,
 
   # save csv file of averaged values
   if(saveplots) write.csv(raw.avg, 
-                          file=paste0(od, nameplots, "raw_converted_average_",data.file.name,".csv"), 
+                          file=file.path(od, paste0(nameplots, 
+                            "raw_converted_average_",data.file.name,".csv")), 
                           row.names = FALSE)
   
   return(raw.avg)
